@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\userIndex;
+use App\Http\Requests\UserIndex;
 use App\Http\Requests\userStore;
 use App\Http\Requests\userUpdate;
 use App\Models\User;
