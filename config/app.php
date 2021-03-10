@@ -166,6 +166,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Hekmatinasser\Verta\VertaServiceProvider::class,
         Larabookir\Gateway\GatewayServiceProvider::class,
+        Ybazli\Faker\FakerServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,6 +228,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Verta' => Hekmatinasser\Verta\Verta::class,
         'Gateway' => Larabookir\Gateway\Gateway::class,
+        'Faker' => Ybazli\Faker\Facades\Faker::class,
 
     ],
 

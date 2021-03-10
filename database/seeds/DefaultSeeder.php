@@ -1,18 +1,29 @@
 <?php
 
 use App\Models\Option;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Ybazli\Faker\Faker;
+
+
 class DefaultSeeder extends Seeder
 {
     public function run()
     {
-        $role = Role::create([
+        $roleadmin = Role::create([
             "name" => "administator" ,
             "description" => "مجاز و دسترسی کامل به اطلاعات" ,
             "default" => true
         ]);
-        $role->permissions()->createMany([
+
+        $roleuser = Role::create([
+            "name" => "user" ,
+            "description" => "مجاز و دسترسی به اطلاعات" ,
+            "default" => true
+        ]);
+
+        $roleadmin->permissions()->createMany([
             [
                 "name" => "permission" ,
                 "description" => "مدیریت پرمیشن ها" ,
@@ -60,15 +71,38 @@ class DefaultSeeder extends Seeder
             ],
 
         ]) ;
-        $role->users()->create([
-            "username" => "test" ,
+
+
+
+        $permiss=Permission::whereIn('name', [
+            'ticket',
+            'credit',
+            'factor.payments',
+            'factor.mypayments',
+        ])->pluck('id','name');
+
+
+        $roleuser->permissions()->sync($permiss) ;
+
+        $faker = new Faker();
+
+        $roleadmin->users()->create([
+            "username" => "testadmin" ,
             'firstname' => 'تست' ,
             'lastname' => 'تست نیا' ,
-            "mobile"   => "" ,
-            "email"    => "test@ghaninia.ir" ,
+            "mobile"   => $faker->mobile() ,
+            "email"    => "testadmin@gmail.com" ,
             "password" => bcrypt("secret") ,
         ]);
 
+        $roleuser->users()->create([
+            "username" => "testuser" ,
+            'firstname' => 'تست' ,
+            'lastname' => 'تست نیا' ,
+            "mobile"   => $faker->mobile() ,
+            "email"    => "testuser@gmail.com" ,
+            "password" => bcrypt("secret") ,
+        ]);
         Option::insert( [
             [
                 "key" => "site_logo" ,

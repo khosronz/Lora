@@ -27,6 +27,7 @@ class Role extends Model
         return $this->belongsToMany( Permission::class) ;
     }
 
+
     // event before delete role
     public static function boot()
     {

@@ -69,7 +69,6 @@ class RoleController extends Controller
 
     public function show(Role $role)
     {
-
     }
 
     public function edit(Role $role)
@@ -102,6 +101,7 @@ class RoleController extends Controller
             Picture::delete($role->picture) ;
             $update['picture'] = Picture::create('picture') ;
         }
+
         $role->permissions()->sync($request->input('permissions' , [] )) ;
         $role->update($update);
         return RepMessage(trans('dashboard.messages.success.roles.update') ) ;
